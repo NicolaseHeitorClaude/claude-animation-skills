@@ -2,9 +2,10 @@
 """Word timings for a voiceover, worked out on your computer (Parakeet through sherpa-onnx).
 Needs the voice models: bash kit/setup.sh --voice. Run it with kit/.venv/bin/python.
 
-    words.py <voiceover.wav|mp3|m4a> [script.txt]
+    words.py <voiceover.wav|mp3|m4a> [script.txt | script.json]
 
-Prints one sentence per line as word@seconds and writes <voiceover>.words.json ([{"w", "s", "e"}, ...]).
+Prints one sentence per line as word@seconds and writes <voiceover name>.words.json next to it
+(audio.m4a -> audio.words.json), a list of {"w", "s", "e"}.
 With a script, the words are spelled as in the script; the timings still come from the audio.
 """
 import difflib
@@ -91,7 +92,10 @@ def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     path = sys.argv[1]
-    script = open(sys.argv[2]).read() if len(sys.argv) > 2 else None
+    script = None
+    if len(sys.argv) > 2:
+        raw = open(sys.argv[2]).read()
+        script = ' '.join(json.loads(raw)) if sys.argv[2].endswith('.json') else raw
     ws = timings(path, script)
     out = os.path.splitext(path)[0] + '.words.json'
     with open(out, 'w') as f:

@@ -26,7 +26,7 @@ KIT=$(python3 -c 'import os,sys;print(os.path.realpath(os.path.join(sys.argv[1],
 [ -x "$KIT/.venv/bin/python" ] && [ -d "$KIT/models" ] || bash "$KIT/setup.sh" --voice   # word timings + free voice, ~1 GB once
 PY="$KIT/.venv/bin/python"
 ```
-Needs ffmpeg, Node and Python 3.9+. It renders with WebGL in headless Chrome: about 0.5 s a frame on a Mac, a few minutes for a short. On a machine without a usable GPU, set `GL=swiftshader` (much slower).
+Needs ffmpeg, Node and Python 3.9+. It renders with WebGL in headless Chrome: about 0.2 to 0.5 s a frame on a Mac, a few minutes for a short. On a machine without a usable GPU, set `GL=swiftshader` (much slower).
 
 ## The engine
 | File | What |
@@ -39,18 +39,24 @@ Needs ffmpeg, Node and Python 3.9+. It renders with WebGL in headless Chrome: ab
 | `src/main.js` | Renderer, sky, lighting, depth of field, bloom, grade, and `window.renderAt(t)`. |
 
 ## Steps
-1. **Script.** Use the user's script, or draft one in the format: "If you…" hook, "some people think…", a "But" twist, examples that build, the mechanism, a payoff that answers the hook. 70 to 90 words for about 30 seconds. Check the facts.
-2. **Project.** Copy the engine and link the shared packages:
+1. **Script.** Use the user's script, or draft one in the format: "If you…" hook, "some people think…", a "But" twist, examples that build, the mechanism, a payoff that answers the hook. About 2.5 words a second (70 to 90 words for 30 s). Check the facts.
+2. **Project.** Copy the engine to a new folder (`<project>` must not exist yet) and link the shared packages:
    ```bash
    cp -R "$SKILL_DIR/engine" <project> && ln -s "$KIT/node_modules" <project>/node_modules
    ```
-3. **Voice.** Best is the user's own recording. Otherwise the free Kokoro voice: put the script in `<project>/script.json` (a list of sentences) and run `"$PY" "$SKILL_DIR/../stick-figure/engine/tools/tts_kokoro.py"` from the project (writes `audio/vo_kokoro.wav`). Save the take as `<project>/audio.m4a` (or any name).
-4. **Captions.** `"$PY" "$KIT/words.py" <voiceover> script.txt` writes `<voiceover>.words.json`; then `python3 captions.py <voiceover>.words.json` prints `CAPTIONS` and `DURATION` to paste into `src/shots.js`.
-5. **Shots.** Plan 8 to 10 shots, cutting on the caption beats, each 2 to 4 s, the mechanism shot longest. Write one function per shot by copying the closest example and changing props, poses and camera, and list them in `SHOTS` with their start and end times. New props go in `props.js` as small functions that return a `THREE.Group`. Keep faces and key props out of the caption band (y about 950 to 1030 of 1280) and away from the frame edges.
-6. **Stills.** From the project: `node render.mjs stills 1.5,6.8,14 stills` and look at every shot before a full render.
-7. **Render.** `node render.mjs video silent.mp4 30`, then add the voice and scale to 1080x1920:
+   Write the script into `<project>/script.json` as a list of sentences.
+3. **Voice.** Best is the user's own recording; convert it with `ffmpeg -i <take> -ac 1 -ar 44100 <project>/audio/vo.wav`. Otherwise, from the project, the free Kokoro voice: `"$PY" "$SKILL_DIR/../stick-figure/engine/tools/tts_kokoro.py" [voice] [speed]` (defaults `am_michael 1.12`; also `af_heart`, `am_adam`, `bm_george`) writes `audio/vo_kokoro.wav`; copy it to `audio/vo.wav`. For the browser preview only, also save it as `audio.m4a` (`main.js` plays that file).
+4. **Captions.** `"$PY" "$KIT/words.py" audio/vo.wav script.json` writes `audio/vo.words.json` (the voiceover's name with `.words.json`). Then `python3 captions.py audio/vo.words.json` prints `CAPTIONS` and `DURATION` to paste over the ones in `src/shots.js`. Set `FADES` around your "But" cut (the example dips at 6.2 s), or `[]`.
+5. **Shots.** Plan a shot every 2 to 4 s (8 to 10 for 30 s, 3 for 10 s), cutting on caption beats, the mechanism shot longest. Write one function per shot by copying the closest example, change the props, poses and camera, and list them in `SHOTS` with start and end times (delete the example functions you don't use).
+   - `update(t)` must depend only on `t`: a render can start in the middle of a shot. Example shot 7 keeps state between frames and needs a workaround, so don't copy that pattern.
+   - Useful helpers inside `shots.js`: `standPose`, `STAND`, `handsOnHips`, `surfaceHit` (where a projectile meets a mesh). In `props.js`: `box`, `shadow`. `rippleOverlay` needs one mesh to sit on; for a target made of parts, give it an invisible disc (with shadows off).
+   - New props go in `props.js` as small functions that return a `THREE.Group`. `sparks` are glowing points, so splinters or dust need their own meshes.
+   - At 9:16 the frame is narrow (about 19° wide at fov 34). To keep a projectile in frame, ride behind it.
+   - Keep faces and key props out of the caption band (y about 950 to 1030 of 1280) and away from the frame edges.
+6. **Stills.** From the project: `node render.mjs stills 1.5,6.8,14 stills`. Look at every shot before a full render.
+7. **Render.** `node render.mjs video silent.mp4 30` (about 0.2 to 0.5 s a frame), then add the voice, level it and scale to 1080x1920:
    ```bash
-   ffmpeg -i silent.mp4 -i <voiceover> -map 0:v -map 1:a -vf scale=1080:1920:flags=lanczos -c:v libx264 -crf 17 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest <name>.mp4
+   ffmpeg -i silent.mp4 -i audio/vo.wav -map 0:v -map 1:a -vf scale=1080:1920:flags=lanczos -c:v libx264 -crf 17 -pix_fmt yuv420p -af "apad,loudnorm=I=-14:TP=-1.5" -c:a aac -b:a 192k -shortest <name>.mp4
    ```
 8. **Hand over** the mp4 path.
 

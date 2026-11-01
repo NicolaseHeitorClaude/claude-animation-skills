@@ -8,12 +8,17 @@ import re
 import sys
 
 
+SMALL = {'a', 'an', 'the', 'at', 'to', 'of', 'in', 'on', 'and', 'or', 'but', 'for', 'with', 'by', 'it', 'is', 'like', 'as', 'so'}
+
+
 def chunks(words, maxw=3, maxc=18):
     out, cur = [], []
-    for w in words:
+    for i, w in enumerate(words):
         cur.append(w)
         text = ' '.join(x['w'] for x in cur)
-        if len(cur) >= maxw or len(text) >= maxc or re.search(r'[.,?!;:]$', w['w']):
+        stop = re.search(r'[.,?!;:]$', w['w'])
+        dangling = w['w'].lower() in SMALL and i + 1 < len(words) and len(cur) < maxw + 1
+        if stop or ((len(cur) >= maxw or len(text) >= maxc) and not dangling):
             out.append(cur)
             cur = []
     if cur:
