@@ -84,6 +84,8 @@ function drawStick(ctx, o) {
     if (hat === 'bandana') drawBandana(ctx, hx, hy, hr, o.hatCol || '#d8312b', o.dotCol || '#fff', lw);
     else if (hat === 'sailor') drawSailorHat(ctx, hx, hy, hr, lw);
     else if (hat === 'captain') drawCaptainHat(ctx, hx, hy, hr, lw);
+    else if (hat === 'hair') drawHair(ctx, hx, hy, hr, o.hairCol || '#3b2a20', lw);
+    else if (hat === 'cap') drawCap(ctx, hx, hy, hr, o.hatCol || '#2a5fb8', lw);
   }
   if (!sil) { circle(ctx, hx, hy, hr); fillStroke(ctx, null, lw); }
   // face
@@ -230,3 +232,24 @@ function drawChest(ctx, x, y, s, open = 1) {
   ctx.restore();
   ctx.restore();
 }
+
+function drawHair(ctx, hx, hy, hr, col, lw) {
+  ctx.save(); ctx.beginPath(); ctx.arc(hx, hy, hr + .004, Math.PI * 1.05, Math.PI * 1.95);
+  ctx.quadraticCurveTo(hx + hr * .55, hy - hr * .55, hx + hr * .1, hy - hr * .62);
+  ctx.quadraticCurveTo(hx - hr * .2, hy - hr * .45, hx - hr * .45, hy - hr * .6);
+  ctx.quadraticCurveTo(hx - hr * .8, hy - hr * .4, hx - hr * .98, hy - hr * .2); ctx.closePath();
+  fillStroke(ctx, col, lw); ctx.restore();
+}
+function drawCap(ctx, hx, hy, hr, col, lw) {
+  const cut = hy - hr * .28;
+  ctx.beginPath(); ctx.moveTo(hx + hr * .7, cut + .01); ctx.quadraticCurveTo(hx + hr * 1.5, cut, hx + hr * 1.55, cut + .03); ctx.lineTo(hx + hr * .6, cut + .04); ctx.closePath(); fillStroke(ctx, col, lw);
+  ctx.beginPath(); ctx.arc(hx, hy, hr + .006, Math.PI + .45, -.45); ctx.quadraticCurveTo(hx, cut + .03, hx - hr * .9, cut); ctx.closePath(); fillStroke(ctx, col, lw);
+  circle(ctx, hx, hy - hr - .005, .018); fillStroke(ctx, col, lw);
+}
+const LUCAS = { cols: ['#f28c28', '#f28c28'], hat: 'hair', belt: false };
+const ATTENDANT = { cols: ['#f2c230', '#f2c230'], hat: 'cap', hatCol: '#2a5fb8', belt: false, vest: '#ff9f1c' };
+const DRIVER = (hairCol, shirt) => ({ cols: [shirt, shirt], hat: 'hair', hairCol, belt: false });
+const C = (base, extra) => Object.assign({}, base, extra);
+const walkLegs = (t, sp = 9, amp = .55) => ({ L: [Math.sin(t * sp) * amp + .05, -Math.max(0, Math.sin(t * sp + 1)) * .7], R: [-Math.sin(t * sp) * amp + .05, -Math.max(0, -Math.sin(t * sp + 1)) * .7] });
+const walkArms = (t, sp = 9, amp = .6) => ({ L: [.3 - Math.sin(t * sp) * amp, -.3], R: [.3 + Math.sin(t * sp) * amp, -.3] });
+const handheld = (t, a = 4) => shake(t * .35, a, 1, 2);

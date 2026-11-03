@@ -15,3 +15,12 @@ bash build.sh                                               # áudio + render + 
 ## Etapas
 - [x] Roteiro de narração e tempos (script.json, timing.json)
 - [x] Narração gerada + timeline + legendas.srt
+- [x] Motor 16:9 (web/): lib, chars (Lucas, atendente), env (carros, LCD 16x2, Arduino, sensores), sim (linha do tempo única do sistema: painel, cancela, LEDs, IR, ultrassom, carros), world (maquete vista de cima + vistas laterais), shots (14 planos, cenas 1–7), main (legendas 2 linhas)
+- [x] Trilha e efeitos sintetizados (audio.py)
+- [x] Trecho de teste 44–65 s conferido (`T0=44 T1=65 bash build.sh`)
+- [ ] Render completo (`bash build.sh`) e conferência final
+
+## Lógica do painel (fiel ao CÓDIGO FINAL 2)
+Vagas = 7 − (estacionados + em manobra). 3 → 2 quando a cancela abre para Lucas; não muda quando ele estaciona.
+Carros D e E: 2 → 1 → LOTADO. Carro C chega: sensor detecta, cancela fica fechada.
+Lucas sai da vaga: LED verde, painel continua LOTADO; após concluir a saída: "Vagas: 1"; C entra: LOTADO.
