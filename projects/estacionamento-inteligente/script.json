@@ -1,0 +1,21 @@
+[
+ {"scene":1,"text":"Lucas só queria estacionar e seguir com o seu dia."},
+ {"scene":1,"text":"Mas encontrou uma fila na entrada e, lá dentro, nenhuma indicação de onde havia vaga."},
+ {"scene":1,"text":"O tempo passava, e a paciência também."},
+ {"scene":2,"text":"Sem informações claras e com o controle manual, fica difícil organizar quem entra e quem sai."},
+ {"scene":2,"text":"Será que a automação poderia ajudar?"},
+ {"scene":3,"text":"Foi pensando nesse problema que nossa equipe desenvolveu um estacionamento inteligente com Arduino: uma maquete de sete vagas, com controle automático de acesso e sinalização em cada espaço."},
+ {"scene":4,"text":"Na entrada, o painel informa quantas vagas estão disponíveis."},
+ {"scene":4,"text":"Um sensor infravermelho detecta o carro, e o Arduino aciona o motor da cancela."},
+ {"scene":4,"text":"O sistema já reserva uma vaga para o veículo que entrou."},
+ {"scene":4,"text":"O segundo sensor confirma a passagem, e a cancela fecha."},
+ {"scene":5,"text":"Agora ficou fácil encontrar uma vaga."},
+ {"scene":5,"text":"A luz verde indica um espaço livre."},
+ {"scene":5,"text":"Quando Lucas estaciona, o sensor ultrassônico detecta o veículo, e a luz fica vermelha."},
+ {"scene":5,"text":"Cada uma das sete vagas tem seu próprio monitoramento."},
+ {"scene":6,"text":"Quando a capacidade é atingida, o painel informa que o estacionamento está lotado."},
+ {"scene":6,"text":"A entrada de novos veículos fica bloqueada até que uma vaga seja liberada."},
+ {"scene":7,"text":"Quando Lucas deixa a vaga, a luz volta a ficar verde."},
+ {"scene":7,"text":"E, depois que ele conclui a saída, o sistema libera um novo acesso."},
+ {"scene":7,"text":"Mais informação para quem chega e mais organização para todos."}
+]
