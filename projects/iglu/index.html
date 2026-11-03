@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>iglu</title>
+<style>
+  @font-face { font-family: 'Cap'; src: url('fonts/montserrat-latin-800-normal.woff2') format('woff2'); font-weight: 800; }
+  @font-face { font-family: 'Cap'; src: url('fonts/montserrat-latin-600-normal.woff2') format('woff2'); font-weight: 600; }
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+  canvas { display: block; }
+  /* captions: inside the Reels/Shorts safe area, shifted left of the right-hand buttons */
+  #cap {
+    position: absolute; left: 90px; width: 820px; bottom: 470px; text-align: center;
+    font: 800 68px/1.13 'Cap', sans-serif; color: #fff; letter-spacing: -0.5px;
+    -webkit-text-stroke: 14px #0d1b30; paint-order: stroke fill;
+    text-shadow: 0 6px 18px rgba(0,20,50,.45);
+  }
+  #cap .hi { color: #ffd23f; }
+  #cap .hot { color: #ffa23a; }
+  #note {
+    position: absolute; left: 90px; width: 820px; top: 250px; text-align: center;
+    font: 600 34px/1.25 'Cap', sans-serif; color: #fff; opacity: 0;
+    -webkit-text-stroke: 6px #10213a; paint-order: stroke fill;
+  }
+  #fade { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+  #hud { position: fixed; left: 1090px; top: 10px; color: #aaa; font: 13px monospace; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "./node_modules/three/build/three.module.js",
+  "three/addons/": "./node_modules/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="stage"><div id="fade"></div><div id="note"></div><div id="cap"></div></div>
+<div id="hud"></div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

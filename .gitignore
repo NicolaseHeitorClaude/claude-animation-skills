@@ -11,3 +11,8 @@ __pycache__/
 skills/stick-figure/engine/template/seg/
 skills/stick-figure/engine/template/stills/
 skills/stick-figure/engine/template/silent.mp4
+projects/*/render/
+projects/*/stills/
+projects/*/node_modules
+kit/models/
+kit/.venv/
