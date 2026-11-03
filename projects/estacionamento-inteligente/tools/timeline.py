@@ -1,5 +1,6 @@
 # Place each narration sentence at its scheduled time -> audio/vo.wav, web/timeline.js (sentences + subtitle cues), legendas.srt
-import json, re, numpy as np, soundfile as sf
+import json, re, os, numpy as np, soundfile as sf
+SRT = os.environ.get('SRT', 'legendas.srt'); TXT = os.environ.get('TXT', 'narracao.txt')
 T = json.load(open("timing.json")); lines = json.load(open("script.json")); raw = json.load(open("audio/lines_raw.json"))["lines"]
 SR = raw[0]["sr"]; N = int(T["total"] * SR); vo = np.zeros(N, dtype=np.float32)
 MAXC = 78  # max chars per cue (two lines of ~39)
@@ -23,8 +24,14 @@ for i, (L, st) in enumerate(zip(lines, T["starts"])):
     if i + 1 < len(T["starts"]): assert en < T["starts"][i + 1] - 0.15, f"line {i} overlaps next ({en:.2f})"
     LINES.append({"i": i, "scene": L["scene"], "s": round(st, 3), "e": round(en, 3), "text": L["text"]})
     parts = split_cues(L["text"]); tw = sum(weight(p) for p in parts); t = st
-    for p in parts:
-        d = (en - st) * weight(p) / tw; CUES.append({"s": round(t, 3), "e": round(t + d, 3), "text": p}); t += d
+    inner = [st + x for x in raw[i].get("inner_pauses", [])]
+    for k, p in enumerate(parts):
+        d = (en - st) * weight(p) / tw; e2 = t + d
+        # snap a cue break that falls on punctuation to the real pause in the recording
+        if k < len(parts) - 1 and re.search(r"[,:;.]$", p) and inner:
+            near = min(inner, key=lambda x: abs(x - e2))
+            if abs(near - e2) < .8: e2 = near
+        CUES.append({"s": round(t, 3), "e": round(e2, 3), "text": p}); t = e2
 # hold each cue a little after speech, but never into the next one
 for k, c in enumerate(CUES):
     nxt = CUES[k + 1]["s"] if k + 1 < len(CUES) else T["total"]
@@ -32,8 +39,8 @@ for k, c in enumerate(CUES):
 sf.write("audio/vo.wav", vo, SR)
 open("web/timeline.js", "w").write("const LINES=" + json.dumps(LINES, ensure_ascii=False) + ";\nconst CUES=" + json.dumps(CUES, ensure_ascii=False) + ";\nconst TOTAL=" + str(T["total"]) + ";\n")
 def ts(x): h = int(x // 3600); m = int(x % 3600 // 60); s = x % 60; return f"{h:02d}:{m:02d}:{int(s):02d},{int(round((s - int(s)) * 1000)):03d}"
-with open("legendas.srt", "w", encoding="utf-8") as f:
+with open(SRT, "w", encoding="utf-8") as f:
     for k, c in enumerate(CUES): f.write(f"{k+1}\n{ts(c['s'])} --> {ts(c['e'])}\n{c['text']}\n\n")
-with open("narracao.txt", "w", encoding="utf-8") as f:
+with open(TXT, "w", encoding="utf-8") as f:
     for L in LINES: f.write(f"[{L['s']:6.1f}s - cena {L['scene']}] {L['text']}\n")
 print(len(CUES), "cues"); [print(c) for c in CUES]

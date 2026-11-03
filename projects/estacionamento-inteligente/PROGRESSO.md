@@ -29,3 +29,11 @@ bash build.sh                                               # áudio + render + 
 Vagas = 7 − (estacionados + em manobra). 3 → 2 quando a cancela abre para Lucas; não muda quando ele estaciona.
 Carros D e E: 2 → 1 → LOTADO. Carro C chega: sensor detecta, cancela fica fechada.
 Lucas sai da vaga: LED verde, painel continua LOTADO; após concluir a saída: "Vagas: 1"; C entra: LOTADO.
+
+## Versão com voz ElevenLabs (gravação enviada pelo usuário)
+- Fonte: `audio_el/narracao_elevenlabs.mp3` (83,5 s, voz "Elvis", eleven_v4), usada sem regeneração nem mudança de velocidade.
+- `tools/split_el.py` corta a gravação nas próprias pausas (19 frases; as 19 conferidas amostra a amostra) e cada frase vai para o seu horário de cena.
+- Ajuste fino da cena 4: pulso ao Arduino 51,85 s, cancela 53,6–54,9 s, painel 3→2 em 55,9 s.
+- Legendas com quebras nas pausas reais: `legendas_elevenlabs.srt`; texto: `narracao_elevenlabs.txt`.
+- Saída: `estacionamento-inteligente_voz-elevenlabs.mp4`. Original preservado: `estacionamento-inteligente.mp4`; voz antiga em `audio_kokoro/`.
+- Refazer: `VO_RAW=1 SRT=legendas_elevenlabs.srt TXT=narracao_elevenlabs.txt OUT=estacionamento-inteligente_voz-elevenlabs bash build.sh`

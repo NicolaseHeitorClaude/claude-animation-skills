@@ -1,0 +1,19 @@
+[   1.2s - cena 1] Lucas só queria estacionar e seguir com o seu dia.
+[   5.6s - cena 1] Mas encontrou uma fila na entrada e, lá dentro, nenhuma indicação de onde havia vaga.
+[  12.4s - cena 1] O tempo passava, e a paciência também.
+[  18.0s - cena 2] Sem informações claras e com o controle manual, fica difícil organizar quem entra e quem sai.
+[  25.0s - cena 2] Será que a automação poderia ajudar?
+[  31.0s - cena 3] Foi pensando nesse problema que nossa equipe desenvolveu um estacionamento inteligente com Arduino: uma maquete de sete vagas, com controle automático de acesso e sinalização em cada espaço.
+[  45.0s - cena 4] Na entrada, o painel informa quantas vagas estão disponíveis.
+[  50.0s - cena 4] Um sensor infravermelho detecta o carro, e o Arduino aciona o motor da cancela.
+[  55.4s - cena 4] O sistema já reserva uma vaga para o veículo que entrou.
+[  60.2s - cena 4] O segundo sensor confirma a passagem, e a cancela fecha.
+[  65.8s - cena 5] Agora ficou fácil encontrar uma vaga.
+[  69.0s - cena 5] A luz verde indica um espaço livre.
+[  72.4s - cena 5] Quando Lucas estaciona, o sensor ultrassônico detecta o veículo, e a luz fica vermelha.
+[  79.4s - cena 5] Cada uma das sete vagas tem seu próprio monitoramento.
+[  87.2s - cena 6] Quando a capacidade é atingida, o painel informa que o estacionamento está lotado.
+[  92.8s - cena 6] A entrada de novos veículos fica bloqueada até que uma vaga seja liberada.
+[  98.8s - cena 7] Quando Lucas deixa a vaga, a luz volta a ficar verde.
+[ 103.4s - cena 7] E, depois que ele conclui a saída, o sistema libera um novo acesso.
+[ 108.4s - cena 7] Mais informação para quem chega e mais organização para todos.

@@ -9,7 +9,7 @@ PY=../../kit/.venv/bin/python; WORKERS=${WORKERS:-4}
 "$PY" audio.py
 TOTAL=$(node tools/render.js frames | tail -1)
 F0=$(python3 -c "print(round(${T0:-0}*30))"); F1=$(python3 -c "print(min($TOTAL, round(${T1:-999}*30)))")
-NAME=${T0:+teste_${T0}-${T1}}; NAME=${NAME:-estacionamento-inteligente}
+NAME=${T0:+teste_${T0}-${T1}}; NAME=${NAME:-${OUT:-estacionamento-inteligente}}
 rm -rf seg; mkdir -p seg
 STEP=$(( (F1 - F0 + WORKERS - 1) / WORKERS )); pids=()
 for ((w = 0; w < WORKERS; w++)); do

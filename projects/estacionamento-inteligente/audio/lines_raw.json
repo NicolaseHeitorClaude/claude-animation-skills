@@ -1,120 +1,214 @@
 {
- "voice": "pm_alex",
- "speed": 1.0,
+ "voice": "ElevenLabs (grava\u00e7\u00e3o enviada)",
+ "source": "audio_el/narracao_elevenlabs.mp3",
  "lines": [
   {
    "i": 0,
    "scene": 1,
-   "dur": 3.026,
-   "sr": 24000
+   "dur": 3.003,
+   "sr": 44100,
+   "src_s": 0.064,
+   "src_e": 2.977,
+   "pause_after": 0.457,
+   "inner_pauses": []
   },
   {
    "i": 1,
    "scene": 1,
-   "dur": 4.979,
-   "sr": 24000
+   "dur": 5.411,
+   "sr": 44100,
+   "src_s": 3.434,
+   "src_e": 8.755,
+   "pause_after": 0.463,
+   "inner_pauses": []
   },
   {
    "i": 2,
    "scene": 1,
-   "dur": 2.436,
-   "sr": 24000
+   "dur": 2.63,
+   "sr": 44100,
+   "src_s": 9.218,
+   "src_e": 11.758,
+   "pause_after": 0.436,
+   "inner_pauses": [
+    1.253
+   ]
   },
   {
    "i": 3,
    "scene": 2,
-   "dur": 5.514,
-   "sr": 24000
+   "dur": 5.465,
+   "sr": 44100,
+   "src_s": 12.194,
+   "src_e": 17.569,
+   "pause_after": 0.453,
+   "inner_pauses": [
+    2.744
+   ]
   },
   {
    "i": 4,
    "scene": 2,
-   "dur": 2.328,
-   "sr": 24000
+   "dur": 1.972,
+   "sr": 44100,
+   "src_s": 18.022,
+   "src_e": 19.904,
+   "pause_after": 0.497,
+   "inner_pauses": []
   },
   {
    "i": 5,
    "scene": 3,
-   "dur": 11.32,
-   "sr": 24000
+   "dur": 11.291,
+   "sr": 44100,
+   "src_s": 20.402,
+   "src_e": 31.602,
+   "pause_after": 0.516,
+   "inner_pauses": [
+    5.404
+   ]
   },
   {
    "i": 6,
    "scene": 4,
-   "dur": 3.865,
-   "sr": 24000
+   "dur": 3.684,
+   "sr": 44100,
+   "src_s": 32.119,
+   "src_e": 35.712,
+   "pause_after": 0.384,
+   "inner_pauses": []
   },
   {
    "i": 7,
    "scene": 4,
-   "dur": 4.484,
-   "sr": 24000
+   "dur": 4.922,
+   "sr": 44100,
+   "src_s": 36.097,
+   "src_e": 40.928,
+   "pause_after": 0.432,
+   "inner_pauses": [
+    2.424
+   ]
   },
   {
    "i": 8,
    "scene": 4,
-   "dur": 3.289,
-   "sr": 24000
+   "dur": 3.004,
+   "sr": 44100,
+   "src_s": 41.361,
+   "src_e": 44.274,
+   "pause_after": 0.43,
+   "inner_pauses": []
   },
   {
    "i": 9,
    "scene": 4,
-   "dur": 3.38,
-   "sr": 24000
+   "dur": 3.389,
+   "sr": 44100,
+   "src_s": 44.704,
+   "src_e": 48.003,
+   "pause_after": 0.45,
+   "inner_pauses": []
   },
   {
    "i": 10,
    "scene": 5,
-   "dur": 2.5,
-   "sr": 24000
+   "dur": 2.154,
+   "sr": 44100,
+   "src_s": 48.453,
+   "src_e": 50.518,
+   "pause_after": 0.462,
+   "inner_pauses": []
   },
   {
    "i": 11,
    "scene": 5,
-   "dur": 2.33,
-   "sr": 24000
+   "dur": 2.227,
+   "sr": 44100,
+   "src_s": 50.98,
+   "src_e": 53.117,
+   "pause_after": 0.38,
+   "inner_pauses": []
   },
   {
    "i": 12,
    "scene": 5,
-   "dur": 4.999,
-   "sr": 24000
+   "dur": 5.072,
+   "sr": 44100,
+   "src_s": 53.497,
+   "src_e": 58.479,
+   "pause_after": 0.419,
+   "inner_pauses": [
+    1.371
+   ]
   },
   {
    "i": 13,
    "scene": 5,
-   "dur": 3.365,
-   "sr": 24000
+   "dur": 3.186,
+   "sr": 44100,
+   "src_s": 58.898,
+   "src_e": 61.994,
+   "pause_after": 0.358,
+   "inner_pauses": []
   },
   {
    "i": 14,
    "scene": 6,
-   "dur": 4.886,
-   "sr": 24000
+   "dur": 4.454,
+   "sr": 44100,
+   "src_s": 62.353,
+   "src_e": 66.717,
+   "pause_after": 0.405,
+   "inner_pauses": [
+    1.684
+   ]
   },
   {
    "i": 15,
    "scene": 6,
-   "dur": 4.685,
-   "sr": 24000
+   "dur": 4.375,
+   "sr": 44100,
+   "src_s": 67.122,
+   "src_e": 71.407,
+   "pause_after": 0.389,
+   "inner_pauses": []
   },
   {
    "i": 16,
    "scene": 7,
-   "dur": 3.239,
-   "sr": 24000
+   "dur": 3.282,
+   "sr": 44100,
+   "src_s": 71.796,
+   "src_e": 74.988,
+   "pause_after": 0.301,
+   "inner_pauses": [
+    1.566
+   ]
   },
   {
    "i": 17,
    "scene": 7,
-   "dur": 3.714,
-   "sr": 24000
+   "dur": 3.929,
+   "sr": 44100,
+   "src_s": 75.288,
+   "src_e": 79.127,
+   "pause_after": 0.396,
+   "inner_pauses": [
+    2.014
+   ]
   },
   {
    "i": 18,
    "scene": 7,
-   "dur": 3.886,
-   "sr": 24000
+   "dur": 3.87,
+   "sr": 44100,
+   "src_s": 79.523,
+   "src_e": 83.304,
+   "pause_after": null,
+   "inner_pauses": [
+    1.848
+   ]
   }
  ]
 }

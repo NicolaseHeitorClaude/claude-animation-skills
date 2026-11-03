@@ -186,20 +186,20 @@ SHOTS.push({ start: 29.6, end: 44.0, tr: 'cut', draw(ctx, lt, t) {
 const lucasX4 = t => kf(t, [[44.0, -350], [46.6, 330, easeOut], [49.7, 330], [51.0, 615, ease], [57.2, 615], [60.9, 1245, x => x * x], [62.6, 1950, x => x]]);
 SHOTS.push({ start: 44.0, end: 64.4, tr: 'fade', draw(ctx, lt, t) {
   const x = lucasX4(t);
-  const cx = kf(t, [[44.0, 380], [46.6, 600], [47.4, 560], [49.4, 560], [50.6, 900], [55.0, 900], [55.6, 600], [56.9, 600], [57.8, 950], [60.0, 1100], [64.4, 1200]]);
-  const cy = kf(t, [[44.0, 610], [46.6, 610], [47.4, 520], [49.4, 520], [50.6, 600], [55.0, 600], [55.6, 540], [56.9, 540], [57.8, 600]]);
-  const z = kf(t, [[44.0, 1.2], [46.6, 1.2], [47.4, 1.6], [49.4, 1.6], [50.6, 1.2], [55.0, 1.2], [55.6, 1.5], [56.9, 1.5], [57.8, 1.2]]);
+  const cx = kf(t, [[44.0, 380], [46.6, 600], [47.4, 560], [49.4, 560], [50.6, 900], [55.3, 900], [55.8, 600], [56.9, 600], [57.8, 950], [60.0, 1100], [64.4, 1200]]);
+  const cy = kf(t, [[44.0, 610], [46.6, 610], [47.4, 520], [49.4, 520], [50.6, 600], [55.3, 600], [55.8, 540], [56.9, 540], [57.8, 600]]);
+  const z = kf(t, [[44.0, 1.2], [46.6, 1.2], [47.4, 1.6], [49.4, 1.6], [50.6, 1.2], [55.3, 1.2], [55.8, 1.5], [56.9, 1.5], [57.8, 1.2]]);
   const hh = handheld(t, 2); const cam = { x: cx + hh[0], y: cy + hh[1], z };
   gateSide(ctx, t, cam);
   const moving = (t > 44 && t < 46.6) || (t > 49.7 && t < 51) || t > 57.2;
   const lookPanel = t > 46.8 && t < 50.0, react = t > 51.2 && t < 53.6;
   carSide(ctx, lucasCar(x, { mouth: lookPanel ? 'grin' : react ? 'o' : 'smile', look: lookPanel ? [-.2, -.9] : [.6, 0], browUp: react ? 1 : 0, eyes: react ? 'wide' : 'normal' }, { brake: !moving, lights: true }));
   gateArmSide(ctx, t);
-  arduinoCallout(ctx, t, fadeA(t, 50.8, 55.3, .4), cam);
+  arduinoCallout(ctx, t, fadeA(t, 51.0, 55.6, .4), cam);
   pill(ctx, GS.lcdX, 340, 'painel: vagas livres', fadeA(t, 46.8, 49.6, .25), 24);
   pill(ctx, GS.ir1 + 40, 560, 'sensor infravermelho 1', fadeA(t, 51.2, 53.4, .25), 24);
-  pill(ctx, GS.gateX - 40, 300, 'servo motor', fadeA(t, 53.4, 55.4, .25), 24);
-  pill(ctx, GS.lcdX, 340, 'vaga reservada', fadeA(t, 55.7, 57.4, .25), 26, '#fff4c2');
+  pill(ctx, GS.gateX - 40, 300, 'servo motor', fadeA(t, 53.7, 55.7, .25), 24);
+  pill(ctx, GS.lcdX, 340, 'vaga reservada', fadeA(t, 56.0, 57.4, .25), 26, '#fff4c2');
   pill(ctx, GS.ir2, 600, 'sensor infravermelho 2', fadeA(t, 60.8, 63.4, .25), 24);
 } });
 

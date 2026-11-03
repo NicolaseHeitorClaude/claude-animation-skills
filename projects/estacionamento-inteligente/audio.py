@@ -146,8 +146,10 @@ fe = np.ones(N); i0 = int((DUR - 3.2) * SR); fe[i0:] = np.linspace(1, 0, N - i0)
 # ---------------- voice + mix ----------------
 vo, vsr = sf.read('audio/vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)
-vo = signal.resample_poly(vo, SR, vsr); vo = hp(vo, 80)
-envv = lp(np.abs(signal.hilbert(vo)), 20); gain = np.where(envv > .12, (.12 / np.maximum(envv, 1e-6)) ** .35, 1.0); vo = vo * gain
+import os
+if vsr != SR: vo = signal.resample_poly(vo, SR, vsr)
+if os.environ.get('VO_RAW') != '1':   # synthetic take: light clean-up; a delivered recording (VO_RAW=1) is used as is, only its level is set
+    vo = hp(vo, 80); envv = lp(np.abs(signal.hilbert(vo)), 20); gain = np.where(envv > .12, (.12 / np.maximum(envv, 1e-6)) ** .35, 1.0); vo = vo * gain
 vo = vo / np.max(np.abs(vo)) * .9
 VO = np.zeros(N); VO[:min(N, len(vo))] = vo[:N]
 venv = lp(np.abs(VO), 5); duck = 1 - .6 * np.clip(venv / .04, 0, 1)

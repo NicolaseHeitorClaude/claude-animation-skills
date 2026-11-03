@@ -1,0 +1,104 @@
+1
+00:00:01,200 --> 00:00:04,553
+Lucas só queria estacionar e seguir com o seu dia.
+
+2
+00:00:05,600 --> 00:00:08,590
+Mas encontrou uma fila na entrada e, lá dentro,
+
+3
+00:00:08,640 --> 00:00:11,361
+nenhuma indicação de onde havia vaga.
+
+4
+00:00:12,400 --> 00:00:15,380
+O tempo passava, e a paciência também.
+
+5
+00:00:18,000 --> 00:00:20,694
+Sem informações claras e com o controle manual,
+
+6
+00:00:20,744 --> 00:00:23,852
+fica difícil organizar quem entra e quem sai.
+
+7
+00:00:25,000 --> 00:00:27,322
+Será que a automação poderia ajudar?
+
+8
+00:00:31,000 --> 00:00:33,932
+Foi pensando nesse problema que nossa equipe desenvolveu
+
+9
+00:00:33,982 --> 00:00:38,406
+um estacionamento inteligente com Arduino: uma maquete de sete vagas,
+
+10
+00:00:38,456 --> 00:00:42,641
+com controle automático de acesso e sinalização em cada espaço.
+
+11
+00:00:45,000 --> 00:00:49,034
+Na entrada, o painel informa quantas vagas estão disponíveis.
+
+12
+00:00:50,000 --> 00:00:52,374
+Um sensor infravermelho detecta o carro,
+
+13
+00:00:52,424 --> 00:00:55,261
+e o Arduino aciona o motor da cancela.
+
+14
+00:00:55,400 --> 00:00:58,754
+O sistema já reserva uma vaga para o veículo que entrou.
+
+15
+00:01:00,200 --> 00:01:03,939
+O segundo sensor confirma a passagem, e a cancela fecha.
+
+16
+00:01:05,800 --> 00:01:08,304
+Agora ficou fácil encontrar uma vaga.
+
+17
+00:01:09,000 --> 00:01:11,577
+A luz verde indica um espaço livre.
+
+18
+00:01:12,400 --> 00:01:13,721
+Quando Lucas estaciona,
+
+19
+00:01:13,771 --> 00:01:17,818
+o sensor ultrassônico detecta o veículo, e a luz fica vermelha.
+
+20
+00:01:19,400 --> 00:01:22,936
+Cada uma das sete vagas tem seu próprio monitoramento.
+
+21
+00:01:27,200 --> 00:01:28,834
+Quando a capacidade é atingida,
+
+22
+00:01:28,884 --> 00:01:31,971
+o painel informa que o estacionamento está lotado.
+
+23
+00:01:32,800 --> 00:01:37,525
+A entrada de novos veículos fica bloqueada até que uma vaga seja liberada.
+
+24
+00:01:38,800 --> 00:01:42,432
+Quando Lucas deixa a vaga, a luz volta a ficar verde.
+
+25
+00:01:43,400 --> 00:01:47,679
+E, depois que ele conclui a saída, o sistema libera um novo acesso.
+
+26
+00:01:48,400 --> 00:01:52,620
+Mais informação para quem chega e mais organização para todos.
+
