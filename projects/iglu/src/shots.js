@@ -473,6 +473,8 @@ function sTilt({ makeStage }) {
   const topC = wallPoint((b.th0 + b.th1) / 2, b.smid + IG.P / 2 + 0.03, IG.T / 2).addScaledVector(tng, -0.18);
   const arr = arrow3D([topC.clone().addScaledVector(nrm, 0.28).add(V(0, 0.1, 0)), topC.clone().addScaledVector(nrm, 0.05).add(V(0, 0.2, 0)), topC.clone().addScaledVector(nrm, -0.22).add(V(0, 0.12, 0))], { color: 0xffc93a, r: 0.011, head: 0.05 });
   S.scene.add(arr);
+  const pv = pivotW.clone().addScaledVector(nrm, IG.T); pv.z = 0.01;
+  const vref = measure([pv.x, pv.y - 0.02, 0.01], [pv.x, pv.y + 0.5, 0.01], 0xffc93a); S.scene.add(vref);
   const thm = (b.th0 + b.th1) / 2;
   const standAt = wallPoint(thm, 0, -0.62); standAt.y = 0;
   standAt.addScaledVector(tng, 0.05);
@@ -504,9 +506,9 @@ function sTilt({ makeStage }) {
       reachTo(h, 'r', pB, { hint: into });
       headLook(h, pA, 0.8);
       const k = easeInOut(range(T, 21.0, 24.0));
-      const nh = V(nrm.x, 0, nrm.z).normalize();
-      const cpos = b.frame.pos.clone().addScaledVector(nh, lerp(1.7, 1.5, k)).add(V(0, lerp(0.75, 0.6, k), lerp(3.3, 2.9, k)));
-      const look = b.frame.pos.clone().addScaledVector(nh, -0.4).add(V(0, 0.15, -0.1));
+      const cpos = V(b.frame.pos.x + lerp(0.55, 0.45, k), lerp(1.25, 1.1, k), lerp(3.6, 3.1, k));
+      const look = V(b.frame.pos.x + 0.35, 0.75, -0.25);
+      vref.set(smooth(range(T, 21.3, 21.7)) * (1 - range(T, 23.4, 23.8)));
       place(c, [cpos.x, cpos.y, cpos.z], [look.x, look.y, look.z]);
       return res({ shadowCenter: [b.frame.pos.x, 0, 0] });
     },
@@ -654,7 +656,19 @@ function sVent({ makeStage }) {
 function sEntrance({ makeStage }) {
   const S = igScene(makeStage, { door: true, shadowSize: 3.6, sunDir: [3, 7, 4] });
   const h = person(); S.scene.add(h.root);
-  const ms = measure([0.35, TUN.floor, 0.2], [0.35, 0.06, 0.2], 0xffffff); S.scene.add(ms);
+  const ms = measure([-0.03, TUN.floor, 0.3], [-0.03, 0.05, 0.3], 0xffffff); S.scene.add(ms);
+  S.scene.children[1].traverse(o => {
+    if (!o.isMesh || o.geometry.type === 'SphereGeometry') return;
+    const src = o.material, m = src.clone();
+    m.onBeforeCompile = src.onBeforeCompile; const key = src.customProgramCacheKey.bind(src);
+    m.customProgramCacheKey = () => key() + 'clipX';
+    m.clippingPlanes = [clipX]; o.material = m;
+  });
+  { // earth section at x = 0: ground level, the dug entrance floor, the ramp out of the tunnel
+    const sh = new THREE.Shape([[-6, -1.4], [8, -1.4], [8, 0], [3.35, 0], [TUN.z1, TUN.floor], [0.12, TUN.floor], [0.12, 0], [-6, 0]].map(([z, y]) => new THREE.Vector2(z, y)));
+    const g = new THREE.ShapeGeometry(sh); g.rotateY(-Math.PI / 2);
+    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: 0xb4cbe4, side: THREE.DoubleSide })); m.position.x = 0.002; S.scene.add(m);
+  }
   const c = cam(38);
   return {
     scene: S.scene, camera: c,
@@ -673,7 +687,7 @@ function sEntrance({ makeStage }) {
       h.root.rotation.y = lerp(0.2, Math.PI + 0.25, turn);
       h.setPose({ ...STAND, ...turnSteps(turn * Math.PI), chest: [idle(t), 0, 0], neck: [0.1, 0, 0] });
       const k = easeInOut(range(T, 36.5, 41.35));
-      place(c, [lerp(6.6, 5.4, k), lerp(0.75, 0.85, k), lerp(2.0, 0.9, k)], [0, lerp(0.0, 0.1, k), lerp(1.5, 0.6, k)]);
+      place(c, [lerp(6.4, 5.2, k), lerp(0.9, 0.8, k), lerp(2.1, 1.0, k)], [0, lerp(0.05, 0.1, k), lerp(1.6, 0.7, k)]);
       return res({ shadowCenter: [0, 0, 1] });
     },
   };
