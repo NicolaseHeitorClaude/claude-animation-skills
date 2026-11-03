@@ -18,7 +18,12 @@ bash build.sh                                               # áudio + render + 
 - [x] Motor 16:9 (web/): lib, chars (Lucas, atendente), env (carros, LCD 16x2, Arduino, sensores), sim (linha do tempo única do sistema: painel, cancela, LEDs, IR, ultrassom, carros), world (maquete vista de cima + vistas laterais), shots (14 planos, cenas 1–7), main (legendas 2 linhas)
 - [x] Trilha e efeitos sintetizados (audio.py)
 - [x] Trecho de teste 44–65 s conferido (`T0=44 T1=65 bash build.sh`)
-- [ ] Render completo (`bash build.sh`) e conferência final
+- [x] Render completo (`bash build.sh`, ~2 min com 4 workers) e conferência final de quadros
+
+## Entregas
+- `estacionamento-inteligente.mp4` — 1920×1080, 30 fps, H.264 + AAC 48 kHz, 115,5 s, legendas incorporadas
+- `legendas.srt` — legendas separadas
+- `narracao.txt` — texto da narração com tempos
 
 ## Lógica do painel (fiel ao CÓDIGO FINAL 2)
 Vagas = 7 − (estacionados + em manobra). 3 → 2 quando a cancela abre para Lucas; não muda quando ele estaciona.
